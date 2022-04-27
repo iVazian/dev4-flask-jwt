@@ -1,26 +1,59 @@
 
 function register(e) {
     // Check if passwords match
+    if (getValue("password1") != getValue("confirm")) {
+        alert("Passwords do not match");
+        return;
+    }
 
     // Fetch data from html
+    data = {
+        password: getValue("password1"),
+        email: getValue("email1"),
+        firstname: getValue("firstname"),
+        lastname: getValue("lastname"),
+    };
 
     // Submit data to API
+    api("users", 'POST', data).then((res) => {
+        if(res.message == 'success'){
+            alert("User created");
+        }
+    });
 }
 
 function login() {
     // Fetch data from html
+    data = {
+        password: getValue("password2"),
+        email: getValue("email2"),
+    };
 
     // Submit data to API
+    api("auth", 'POST', data).then((res) => {
+        if(res.message == 'success'){ 
+            // Save the received JWT in a cookie
+            setCookie("token", res.access_token, 365);
+            showPage('mainPage');
+            getUser();
+        }
+    });
 }
 
 function getUser() {
     // Fetch user data from API
+    api("me").then((res) => {
+        if(res.message == 'success'){
+            document.getElementById('welcome').innerText = `Welcome, ${res.user.firstname} ${res.user.lastname}`;
+        }
+    });
 }
 
 function logout(){
-    
-}
+    deleteCookie("token");
+    showPage('loginPage');
 
+}
 
 // Helper functions
 
