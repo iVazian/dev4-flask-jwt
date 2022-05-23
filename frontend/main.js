@@ -1,11 +1,24 @@
 
 function register(e) {
     // Check if passwords match
-
+if (getValue("password1") != getValue("confirm")) {
+    alert("Passwords do not match");
+    return;
+}
     // Fetch data from html
-
+data = {
+    password: getValue("password1"),
+    email: getValue("email1"),
+    firstname: getValue("firstname"),
+    lastname: getValue("lastname"),
+};
     // Submit data to API
 }
+api("users", 'POST', data). then((res) => {
+    if(res.message == 'success'){
+        alert("User created");
+    }
+});
 
 function login() {
     // Fetch data from html
