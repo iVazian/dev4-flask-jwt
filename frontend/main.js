@@ -13,12 +13,13 @@ data = {
     lastname: getValue("lastname"),
 };
     // Submit data to API
-}
+
 api("users", 'POST', data). then((res) => {
     if(res.message == 'success'){
         alert("User created");
     }
 });
+}
 
 function login() {
     // Fetch data from html
