@@ -23,8 +23,19 @@ api("users", 'POST', data). then((res) => {
 
 function login() {
     // Fetch data from html
+    data = {
+        password: getValue("password2"),
+        email: getValue("email2"),
+    };
 
     // Submit data to API
+    api("auth", 'POST', data).then((res) => {
+        if(res.message == 'success'){
+            setCookie("token", res.access_token, 365);
+            showPage('mainPage');
+            getUser();
+        }
+    });
 }
 
 function getUser() {
