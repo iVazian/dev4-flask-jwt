@@ -1,4 +1,15 @@
+from flask_jwt_extended import (
+    jwt_required,
+    create_access_token
+    )
 
+from flask import request, jsonify
+@jwt_required()
+def me(): 
+    pass
+    user = get_jwt_identity()
+    return jsonify(user=user, message='success'), 200
+    
 def login():
     pass
     # Get data from request
